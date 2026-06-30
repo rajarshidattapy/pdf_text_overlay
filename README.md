@@ -111,11 +111,16 @@ data = json.loads("""{
 
 original_pdf = open("file_name.pdf", "rb")
 font = open("font_name.ttf", "rb")
-output = pdf_writer(original_pdf, configuration, data, font)
+output = pdf_writer(original_pdf, configuration, data, font, font_size=10)
 outputStream = open("output.pdf", "wb")
 output.write(outputStream)
 outputStream.close()
 ```
+
+`pdf_writer(original_pdf, configuration, data, font, font_size=10)` parameters:
+
+* `font` (required) - either a path (`str`) to a `.ttf` file, or a file-like object opened in binary mode, e.g. `open("font.ttf", "rb")`. Passing `None` or an invalid path/type raises `InvalidFontError` with a clear message instead of an obscure ReportLab error.
+* `font_size` (optional, default `10`) - the default font size used to draw text. It can be overridden per field by setting `"font_size"` on that field's entry in `configuration` (see the `"name"` field above).
 
 ### Example: PDF from template
 ```python
